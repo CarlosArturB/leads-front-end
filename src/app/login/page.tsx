@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import storage from 'local-storage-fallback';
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -27,6 +28,9 @@ export default function Login() {
       // const data = await res.json()
       // localStorage.setItem('token', data.token)
 
+      const payLoad = await res.json();
+      storage.setItem('JWTLOCALSTORAGE', payLoad.token);
+      
       router.push('/dashboard')
     } catch (err: any) {
       setError(err.message)

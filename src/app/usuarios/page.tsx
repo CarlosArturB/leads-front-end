@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 type User = {
   name: string
@@ -8,6 +9,7 @@ type User = {
 }
 
 export default function Usuarios() {
+  const router = useRouter()
   const [users, setUsers] = useState<User[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -27,10 +29,19 @@ export default function Usuarios() {
     fetchUsers()
   }, [])
 
+   const handleRedirectUsers = () => {
+    router.push('/dashboard')
+  }
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <h1 className="text-2xl font-bold mb-6">Lista de Usuários</h1>
-
+      <button
+        onClick={handleRedirectUsers}
+        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition mb-4"
+      >
+        Dashboard
+      </button>
       {loading ? (
         <p>Carregando usuários...</p>
       ) : (
